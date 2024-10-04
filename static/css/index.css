@@ -1,0 +1,27 @@
+
+        .hero {
+            background-size: cover;
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: black;
+        }
+        .hero h1 {
+            font-size: 3rem;
+        }
+        .hero p {
+            font-size: 1.5rem;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+        }
+.navbarcss{
+    border-radius: 5px;
+}
+
+.my-blog{
+    margin-left: 15px
+}
