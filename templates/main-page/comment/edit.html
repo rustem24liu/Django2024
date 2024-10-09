@@ -1,0 +1,21 @@
+{% extends 'main-page/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <form action="{% url 'comment-edit' comment.pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for error in non_field_errors %}
+            <p class="form-error">{{ error }}</p>
+        {% endfor %}
+
+     <div class="mb-3">
+         <label for="id_body" class="form-label">Text</label>
+         <input type="text" name="body" id="id_body" class="form-control" value="{{ comment.body }}">
+     </div>
+
+     <button type="submit" class="btn btn-outline-success mt-3 mb-3">Update</button>
+     <button class="btn btn-outline-secondary mt-3 mb-3">Cancel</button>
+
+     </form>
+</div>
+{% endblock %}

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 
@@ -123,5 +123,8 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
+MEDIA_URL = '/app-images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'app-images')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

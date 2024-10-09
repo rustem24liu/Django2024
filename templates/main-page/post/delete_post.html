@@ -1,0 +1,23 @@
+{% extends 'main-page/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card mb-4" style="max-width: 600px; margin: auto;">
+        <div class="card-body text-center">
+            <h5 class="card-title text-danger">Are you sure you want to delete the following post?</h5>
+            {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="problems with the image of post-{{ post.pk }}">
+                        {% else %}
+            {% endif %}
+            <h6 class="mb-3">{{ post.title }}</h6>
+            <p class="text-muted">Author: {{ post.author }}</p>
+            <p>{{ post.body }}</p>
+            <p class="text-danger"><strong>This action cannot be undone.</strong></p>
+            <form action="{% url 'post-delete' post.pk %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger">Delete Post</button>
+                <a href="{% url 'post-list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

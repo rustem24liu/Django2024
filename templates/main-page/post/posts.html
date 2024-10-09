@@ -1,0 +1,44 @@
+{% extends 'main-page/base.html' %}
+{% block content %}
+<div id="posts" class="container mt-5 w-50">
+    <h2 class="text-center mb-4">Recent Posts</h2>
+    <div class="text-center mb-4">
+        <a href="{% url 'create-post' %}" class="btn btn-success">Create New Post</a>
+    </div>
+    <div class="row">
+        {% for post in posts %}
+            <div class="col-12 mb-4">
+                <div class="card">
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" class="card-img-top" alt="Image of post-{{ post.pk }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.pk }}. {{ post.title }}</h5>
+                        <p class="card-text"><strong>{{ post.author }}:</strong> {{ post.body|truncatewords:50 }}</p>
+                        <p class="text-muted">Last updated at: {{ post.created_at }}</p>
+                        <a href="{% url 'post-detail' post.pk %}" class="btn btn-primary">Read More</a>
+                        <a href="{% url 'post-delete' post.pk %}" class="btn btn-danger">Delete</a>
+                    </div>
+                <div  style="margin: 10px 20px">
+                    <div class="form-control">
+                    <h6>Comments:</h6>
+                    {% if post.comments.all %}
+                        {% for comment in post.comments.all %}
+                            <div class="comment mb-2">
+                                <strong>{{ comment.author }}:</strong> {{ comment.body }}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No comments yet.</p>
+                    {% endif %}
+                    <a href="{% url 'comment-create' post.pk %}" class="text-secondary">Add comment</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'main-page/base.html' %}
+
+{% block content %}
+    <div class="card mt-3 container w-50 mb-3">
+    <h1 class="text-center mt-5 mb-3">Post Edit</h1>
+     <form action="{% url 'post-edit' post.pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for error in non_field_errors %}
+            <p class="form-error">{{ error }}</p>
+        {% endfor %}
+
+     <div class="mb-3">
+         <label for="id_title" class="form-label">Title</label>
+         <input type="text" name="title" id="id_title" class="form-control" value="{{ post.title }}">
+     </div>
+
+     <div class="mb-3">
+         <label for="id_body" class="form-label">Content</label>
+         <input type="text" name="body" id="id_body" class="form-control" value="{{ post.body }}">
+     </div>
+
+     <div class="mb-3">
+         <label for="productImage" class="form-label">Product Image</label>
+         {% if product.image %}
+             <img src="{{ post.image.url }}" alt="problems with the image of post-{{ post.pk }}" style="max-width: 200px; margin-top: 10px;">
+               <div class="mt-3">
+                 {{ form.image }}
+               </div>
+         {% else %}
+            {{ form.image }}
+         {% endif %}
+     </div>
+
+     <button type="submit" class="btn btn-outline-success mt-3 mb-3">Update</button>
+     <button class="btn btn-outline-secondary mt-3 mb-3">Cancel</button>
+
+     </form>
+    </div>
+{% endblock %}

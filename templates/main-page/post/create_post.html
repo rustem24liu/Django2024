@@ -1,0 +1,13 @@
+{% extends 'main-page/base.html' %}
+{% block content %}
+<div class="container mt-5 form-control">
+    <label class="form-control text-center justify-content-center">Creating New Post...</label>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="text-center">
+              <button type="submit" class="btn btn-outline-success mt-3 mb-3">Create the post</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -15,6 +15,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False, related_name='posts')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
+    image = models.ImageField(upload_to='post-images', null=True, blank=True)
 
     def __str__(self):
         return f'{self.pk} - {self.title} /n {self.author}'
@@ -27,4 +28,4 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
 
     def __str__(self):
-        return f'{self.pk} - {self.body[:20]} /n {self.author}'
+        return f'{self.pk} - {self.body[:20]} /n {self.author} post: {self.post}'
