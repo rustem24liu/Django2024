@@ -3,8 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 
-from accounts.models import Profile
-
+from .models import Profile
 
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput(), required=True, strip=False)
@@ -28,16 +27,18 @@ class RegistrationForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password', 'password_confirm', 'first_name', 'last_name', 'email')
 
+
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ('firstname', 'lastname', 'email')
-        labels = {'firstname': 'First Name', 'lastname': 'Last Name', 'email': 'Email'}
+        fields = ['first_name', 'last_name', 'email']
+        labels = {'first_name': 'First Name', 'last_name': 'Last Name', 'email': 'Email'}
 
         widgets = {'username': forms.TextInput(attrs={'class': 'form-control w-50'}),
                    'first_name': forms.TextInput(attrs={'class': 'form-control w-50'}),
                    'last_name': forms.TextInput(attrs={'class': 'form-control w-50'}),
-                   'email': forms.EmailInput(attrs={'class': 'form-control w-50'}), }
+                   'email': forms.EmailInput(attrs={'class': 'form-control w-50'}),}
+
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -48,10 +49,10 @@ class ProfileEditForm(forms.ModelForm):
                    'birth_date': forms.DateInput(attrs={'class': 'form-control w-50', 'type':'date'}),
                    'avatar': forms.FileInput(attrs={'class': 'form-control w-50'})}
 
-class PasswordChangeForm(forms.Form):
+class PasswordChangeForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}), required=True, strip=False)
     password_confirm = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class':'form-control'}), required=True, strip=False)
-    old_password = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    old_password = forms.CharField(label='Old Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
     def clean_old_password(self):
         old_password = self.cleaned_data.get('old_password')
@@ -66,6 +67,6 @@ class PasswordChangeForm(forms.Form):
             user.save()
             return user
 
-        class Meta:
-            model = get_user_model()
-            fields = ('old_password', 'password', 'password_confirm')
+    class Meta:
+        model = get_user_model()
+        fields = ('old_password', 'password', 'password_confirm')

@@ -17,6 +17,7 @@ def post_list_view(request):
     posts = Post.objects.all()
     return render(request, 'main-page/post/posts.html', context={'posts': posts})
 
+
 class PostListVies(ListView):
     template_name = "main-page/post/posts.html"
     model = Post

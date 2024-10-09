@@ -37,19 +37,21 @@
                             Hello, {{ request.user.username }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="dropdown-item" >
-                            <li><a class="dropdown-item" href="" id="dropdown-item" >Profile</a></li>
-                            <li><a class="dropdown-item" href="" id="dropdown-item" >Edit Profile</a></li>
-                            <li><a class="dropdown-item" href="" id="dropdown-item" >Change Password</a></li>
-                            <li><a class="dropdown-item" href="" id="dropdown-item" >Log-out</a></li>
+                            <li><a class="dropdown-item" href="{% url 'profile' %}" id="dropdown-item" >Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'edit' %}" id="dropdown-item" >Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'change-password' %}" id="dropdown-item" >Change Password</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}" id="dropdown-item" >Log-out</a></li>
                         </ul>
                             </li>
                             {% else %}
+                    <div class="mt-2">
                                 <li class="nav__item">
-                                    <a href="{% url 'login' %}" id="dropdown-item">Login</a>
+                                    <a href="{% url 'login' %}" id="dropdown-item" class="text-secondary">Login</a>
                                 </li>
                                 <li class="nav__item">
-                                    <a href="{% url 'signup' %}" id="dropdown-item">SignUp</a>
+                                    <a href="{% url 'register' %}" id="dropdown-item" class="text-success">SignUp</a>
                                 </li>
+                    </div>
                         {% endif %}
             </ul>
         </div>

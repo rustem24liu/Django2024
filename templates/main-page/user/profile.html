@@ -1,0 +1,42 @@
+{% extends 'main-page/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">{{ user_object.username }}'s Profile</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                {% if user_object.profile.avatar %}
+                                    <img src="{{ user_object.profile.avatar.url }}" class="img-fluid" style="width: 200px" alt="avatar">
+                                        {% else %}
+                                        <div style="">
+                                            <img src="{% static 'images/user.png' %}" style="width: 200px" alt="default">
+                                         </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <ul class="list-group">
+                                    <li class="list-group-item"><strong>Username:</strong>{% if user_object.username %} {{ user_object.username }} {% else %} <p class="text-warning">Not declared</p> {% endif %}</li>
+                                    <li class="list-group-item"><strong>First Name:</strong> {% if user_object.first_name %} {{ user_object.first_name }} {% else %} <p class="text-warning">Not declared</p>  {% endif %}</li>
+                                    <li class="list-group-item"><strong>Last Name:</strong>{% if user_object.last_name %} {{ user_object.last_name}} {% else %} <p class="text-warning">Not declared</p>  {% endif %}</li>
+                                    <li class="list-group-item"><strong>Birth Date:</strong> {% if user_object.profile.birth_date %} {{ user_object.profile.birth_date }} {% else %}<p class="text-warning">Not declared</p>  {% endif %}</li>
+{#                                    <li class="list-group-item"><strong>Position:strong</strong>{% strongif user_object.profile.position %} {{ user_object.profile.position }} {% else %} <p class="text-warning">Not declared</p> {% endif %}</li>#}
+                                    <li class="list-group-item"><strong>Number:</strong> {% if user_object.profile.number %} {{ user_object.profile.number  }} {% else %} <p class="text-warning">Not declared</p>  {% endif %}</li>
+                                </ul>
+
+                                <div class="text-end">
+                                    <a href="{% url 'edit' %}" class="btn btn-outline-secondary m-3">Edit profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
