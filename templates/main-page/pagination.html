@@ -1,0 +1,30 @@
+<div class="pagination" style="justify-content: center; margin-top: 50px">
+
+    <span class="step-links">
+        <a href="?page=1">&laquo; first</a>
+
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">prev</a>
+            {% else %}
+            <span class="page-disabled">prev</span>
+        {% endif %}
+
+        <form class="current-page" method="get">
+            <label for="page">
+                Page <input type="text" name="page" id="page" value="{{ page_obj.number }}" style="width: 40px" disabled>
+
+                of {{ page_obj.paginator.num_pages }}.
+
+            </label>
+        </form>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            {% else %}
+                <span class="page-disabled">next</span>
+        {% endif %}
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+    </span>
+
+
+</div>

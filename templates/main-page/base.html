@@ -37,7 +37,7 @@
                             Hello, {{ request.user.username }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="dropdown-item" >
-                            <li><a class="dropdown-item" href="{% url 'profile' %}" id="dropdown-item" >Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'profile' request.user.pk %}" id="dropdown-item" >Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'edit' %}" id="dropdown-item" >Edit Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'change-password' %}" id="dropdown-item" >Change Password</a></li>
                             <li><a class="dropdown-item" href="{% url 'logout' %}" id="dropdown-item" >Log-out</a></li>

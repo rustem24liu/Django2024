@@ -28,4 +28,4 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
 
     def __str__(self):
-        return f'{self.pk} - {self.body[:20]} /n {self.author} post: {self.post}'
+        return f'{self.pk} - {self.body[:20]} /n {self.author} post: {self.post}    '

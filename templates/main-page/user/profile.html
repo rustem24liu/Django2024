@@ -27,10 +27,25 @@
                                     <li class="list-group-item"><strong>Birth Date:</strong> {% if user_object.profile.birth_date %} {{ user_object.profile.birth_date }} {% else %}<p class="text-warning">Not declared</p>  {% endif %}</li>
 {#                                    <li class="list-group-item"><strong>Position:strong</strong>{% strongif user_object.profile.position %} {{ user_object.profile.position }} {% else %} <p class="text-warning">Not declared</p> {% endif %}</li>#}
                                     <li class="list-group-item"><strong>Number:</strong> {% if user_object.profile.number %} {{ user_object.profile.number  }} {% else %} <p class="text-warning">Not declared</p>  {% endif %}</li>
+                                    <li class="list-group-item"><strong>Followers</strong>{% if not followers %} Not any followers {% else %} {% for follower in followers %}{{ follower.follower }}{% endfor %}{% endif %} </li>
+                                    <li class="list-group-item"><strong>Following</strong>{% if not following %} Not following to anyone {% else %} {% for follow in following %}{{ follow.following }}{% endfor %}{% endif %} </li>
+
+
                                 </ul>
 
                                 <div class="text-end">
-                                    <a href="{% url 'edit' %}" class="btn btn-outline-secondary m-3">Edit profile</a>
+                                    {% if request.user == current_user  %}
+                                    <a href="{% url 'edit' %}" class="btn btn-outline-success mt-3">Edit profile</a>
+                                    {% endif %}
+                                {% if request.user != current_user %}
+                                    {% if not is_following %}
+                                        <a href="{% url 'follow' user_object.username %}" class="btn btn-outline-secondary mt-3">Follow</a>
+                                        {% else %}
+                                        <a href="{% url 'unfollow' user_object.username %}" class="btn btn-outline-secondary mt-3">Unfollow</a>
+                                    {% endif %}
+                                {% endif %}
+                                    <a href="{% url 'post-list' %}" class="btn btn-outline-secondary mt-3">Go Back</a>
+
                                 </div>
                             </div>
                         </div>

@@ -50,23 +50,35 @@ class ProfileEditForm(forms.ModelForm):
                    'avatar': forms.FileInput(attrs={'class': 'form-control w-50'})}
 
 class PasswordChangeForm(forms.ModelForm):
-    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}), required=True, strip=False)
-    password_confirm = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class':'form-control'}), required=True, strip=False)
-    old_password = forms.CharField(label='Old Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label='Password', strip=False)
+    password_confirm = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label='Password Confirm', strip=False)
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label='Old password', strip=False)
+
+    def clean_password_confirm(self):
+        password = self.cleaned_data.get("password")
+        password_confirm = self.cleaned_data.get("password_confirm")
+
+        if password and password_confirm and password != password_confirm:
+            raise forms.ValidationError("Password don't match")
+
+        return password_confirm
 
     def clean_old_password(self):
-        old_password = self.cleaned_data.get('old_password')
+        old_password = self.cleaned_data.get("old_password")
 
         if not self.instance.check_password(old_password):
-            raise forms.ValidationError('Old password must match')
+            raise forms.ValidationError("Old password is incorrect")
+
+        return old_password
 
     def save(self, commit=True):
         user = self.instance
-        user.set_password(self.cleaned_data['password'])
+        user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
-            return user
+        return user
 
     class Meta:
         model = get_user_model()
         fields = ('old_password', 'password', 'password_confirm')
+

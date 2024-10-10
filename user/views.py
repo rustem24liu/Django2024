@@ -3,16 +3,34 @@ from lib2to3.fixes.fix_input import context
 from django.contrib.auth import authenticate, login, logout, get_user, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import DetailView, UpdateView
 
 from .forms import RegistrationForm, ProfileEditForm, PasswordChangeForm, UserEditForm
-from .models import Profile
+from .models import Profile, Follow
+
 
 
 # Create your views here.
 
+@login_required
+def follow_user(request, username):
+    follow_user = get_object_or_404(User, username=username)
+
+    if request.user != follow_user:
+        Follow.objects.get_or_create(follower=request.user, following=follow_user)
+
+    return redirect('profile', follow_user.pk)
+
+@login_required
+def unfollow_user(request, username):
+    user_to_unfollow = get_object_or_404(User, username=username)
+    if request.user != user_to_unfollow:
+        Follow.objects.get(follower=request.user, following=user_to_unfollow).delete()
+
+    return redirect('profile', user_to_unfollow.pk)
 
 def login_view(request):
     context = {}
@@ -57,12 +75,27 @@ class UserDetailView(DetailView):
     template_name = 'main-page/user/profile.html'
     context_object_name = 'user_object'
 
+    # is_following = Follow.objects.filter(follower=request.user)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
+        user = self.get_object()
+        context['followers'] = Follow.objects.filter(following=user)
+        context['following'] = Follow.objects.filter(follower=user)
+        context['current_user'] = user
+        print(context['followers'])
+        print('-------------------')
+        print(context['following'])
+        context['is_following'] = Follow.objects.filter(follower=self.request.user, following=user).exists()
+
         return context
 
+    def get_queryset(self):
+        return get_user_model().objects.all()
+
     def get_object(self):
-        return self.request.user
+        return get_user_model().objects.get(pk=self.kwargs['pk'])
+
 
 class UserUpdateView(LoginRequiredMixin,UpdateView):
     model = get_user_model()

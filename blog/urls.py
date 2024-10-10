@@ -8,6 +8,8 @@ from .views import PostListVies, PostDetailView, PostUpdateView, PostDeleteView,
 urlpatterns = [
     path('', views.index, name='index'),
     path('posts/', PostListVies.as_view(), name='post-list'),
+    path('posts/following/', PostListVies.as_view(), name='post-following'),  # Add this
+    path('posts/followers/', PostListVies.as_view(), name='post-followers'),
     path('post-edit/<int:pk>/', PostUpdateView.as_view(), name='post-edit'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('post-delete/<int:pk>/', PostDeleteView.as_view(), name='post-delete'),

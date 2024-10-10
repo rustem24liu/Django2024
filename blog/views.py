@@ -1,13 +1,14 @@
 from lib2to3.fixes.fix_input import context
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import reverse, render, redirect, get_object_or_404
 from django.shortcuts import render
 from urllib import request
 
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, SearchForm
 from .models import Post, Comment
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-
+from django.db.models import Q
 
 # Create your views here.
 def index(request):
@@ -22,9 +23,21 @@ class PostListVies(ListView):
     template_name = "main-page/post/posts.html"
     model = Post
     context_object_name = 'posts'
+    paginate_by = 3
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_value = self.request.GET.get('search', None)
+
+        if search_value:
+            query = Q(title__icontains=search_value)
+            queryset = queryset.filter(query)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['search_form'] = SearchForm(self.request.GET)
         return context
 
 class PostDetailView(DetailView):
@@ -40,7 +53,7 @@ class PostDetailView(DetailView):
         context['comments'] = comments
         return context
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin,CreateView):
     template_name = "main-page/post/create_post.html"
     model = Post
     form_class = PostForm
@@ -57,7 +70,7 @@ class PostCreateView(CreateView):
     def get_success_url(self):
         return reverse('post-list')
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "main-page/post/update-post.html"
     model = Post
     form_class = PostForm
@@ -76,14 +89,14 @@ class PostUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('post-detail', kwargs={'pk': self.kwargs['pk']})
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin,DeleteView):
     template_name = 'main-page/post/delete_post.html'
     model = Post
 
     def get_success_url(self):
         return reverse('post-list')
 
-class CommentCreateVew(CreateView):
+class CommentCreateVew(LoginRequiredMixin, CreateView):
     template_name = 'main-page/comment/create.html'
     model = Comment
     form_class = CommentForm
@@ -103,7 +116,7 @@ class CommentCreateVew(CreateView):
         return context
 
 
-class CommentDeleteView(DeleteView):
+class CommentDeleteView(LoginRequiredMixin,DeleteView):
     model = Comment
     form_class = CommentForm
 
@@ -113,7 +126,7 @@ class CommentDeleteView(DeleteView):
     def get_success_url(self):
         return reverse('post-list')
 
-class CommentUpdateView(UpdateView):
+class CommentUpdateView(LoginRequiredMixin,UpdateView):
     model = Comment
     form_class = CommentForm
     template_name = 'main-page/comment/edit.html'
