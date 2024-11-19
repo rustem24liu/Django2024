@@ -1,0 +1,82 @@
+INFO 2024-11-19 18:54:48,965 autoreload Watching for file changes with StatReloader
+INFO 2024-11-19 18:55:46,898 autoreload /Users/rustemtemirgali/Desktop/kbtu3_5s/Django2024/assignment2/user/signals.py changed, reloading.
+INFO 2024-11-19 18:55:47,486 autoreload Watching for file changes with StatReloader
+INFO 2024-11-19 18:56:06,917 autoreload /Users/rustemtemirgali/Desktop/kbtu3_5s/Django2024/assignment2/user/signals.py changed, reloading.
+INFO 2024-11-19 18:56:07,193 autoreload Watching for file changes with StatReloader
+WARNING 2024-11-19 19:00:40,380 log Forbidden (CSRF token from POST incorrect.): /accounts/log/logout/
+WARNING 2024-11-19 19:00:40,386 basehttp "POST /accounts/log/logout/?next=/course/courses/ HTTP/1.1" 403 2503
+WARNING 2024-11-19 19:00:51,648 log Forbidden (CSRF token from POST incorrect.): /accounts/log/logout/
+WARNING 2024-11-19 19:00:51,649 basehttp "POST /accounts/log/logout/?next=/course/courses/ HTTP/1.1" 403 2503
+WARNING 2024-11-19 19:00:57,718 basehttp "GET /accounts/log/logout/ HTTP/1.1" 405 0
+INFO 2024-11-19 19:01:02,330 basehttp "GET /accounts/log/login/?next=/course/courses/ HTTP/1.1" 200 2720
+INFO 2024-11-19 19:01:03,824 basehttp "GET /accounts/log/login/ HTTP/1.1" 200 2704
+INFO 2024-11-19 19:01:11,104 signals User logged in: ayan
+INFO 2024-11-19 19:01:11,106 basehttp "POST /accounts/log/login/ HTTP/1.1" 302 0
+INFO 2024-11-19 19:01:11,247 basehttp "GET /accounts/profile/ HTTP/1.1" 200 6103
+INFO 2024-11-19 19:03:10,943 autoreload /Users/rustemtemirgali/Desktop/kbtu3_5s/Django2024/assignment2/source/settings.py changed, reloading.
+INFO 2024-11-19 19:03:11,256 autoreload Watching for file changes with StatReloader
+INFO 2024-11-19 19:08:01,324 autoreload /Users/rustemtemirgali/Desktop/kbtu3_5s/Django2024/assignment2/source/settings.py changed, reloading.
+INFO 2024-11-19 19:08:01,722 autoreload Watching for file changes with StatReloader
+INFO 2024-11-19 19:16:58,722 signals New user registered: admin
+INFO 2024-11-19 19:16:58,891 signals New user registered: teacher
+INFO 2024-11-19 19:16:59,061 signals User logged in: admin
+INFO 2024-11-19 19:16:59,241 signals New user registered: admin
+INFO 2024-11-19 19:16:59,406 signals New user registered: teacher
+INFO 2024-11-19 19:16:59,574 signals User logged in: admin
+INFO 2024-11-19 19:16:59,745 signals New user registered: admin
+INFO 2024-11-19 19:16:59,911 signals New user registered: teacher
+INFO 2024-11-19 19:17:00,078 signals User logged in: teacher
+INFO 2024-11-19 19:17:00,245 signals New user registered: admin
+INFO 2024-11-19 19:17:00,407 signals New user registered: teacher
+INFO 2024-11-19 19:17:00,571 signals New user registered: student
+INFO 2024-11-19 19:17:00,739 signals User logged in: admin
+INFO 2024-11-19 19:17:00,906 signals New user registered: admin
+INFO 2024-11-19 19:17:01,072 signals New user registered: teacher
+INFO 2024-11-19 19:17:01,238 signals New user registered: student
+INFO 2024-11-19 19:17:01,404 signals User logged in: student
+INFO 2024-11-19 19:17:01,570 signals New user registered: admin
+INFO 2024-11-19 19:17:01,733 signals New user registered: teacher
+INFO 2024-11-19 19:17:01,896 signals New user registered: student
+INFO 2024-11-19 19:17:02,060 signals User logged in: teacher
+INFO 2024-11-19 19:17:02,225 signals New user registered: teacher
+INFO 2024-11-19 19:17:02,391 signals New user registered: student
+INFO 2024-11-19 19:17:02,557 signals New user registered: teacher
+INFO 2024-11-19 19:17:02,724 signals New user registered: student
+INFO 2024-11-19 19:17:02,890 signals User logged in: teacher
+INFO 2024-11-19 19:17:03,056 signals New user registered: teacher
+INFO 2024-11-19 19:17:03,220 signals New user registered: student
+INFO 2024-11-19 19:17:03,385 signals User logged in: student
+INFO 2024-11-19 19:17:03,551 signals New user registered: teacher
+INFO 2024-11-19 19:17:03,716 signals New user registered: student
+INFO 2024-11-19 19:17:03,881 signals New user registered: teacher
+INFO 2024-11-19 19:17:04,047 signals New user registered: student
+INFO 2024-11-19 19:17:04,212 signals New user registered: teacher
+INFO 2024-11-19 19:17:04,379 signals New user registered: student
+INFO 2024-11-19 19:17:04,546 signals User logged in: teacher
+INFO 2024-11-19 19:17:04,712 signals New user registered: teacher
+INFO 2024-11-19 19:17:04,879 signals New user registered: student
+INFO 2024-11-19 19:17:05,046 signals User logged in: student
+INFO 2024-11-19 19:21:55,169 signals New user registered: teacher
+INFO 2024-11-19 19:21:55,335 signals New user registered: student
+INFO 2024-11-19 19:21:55,507 signals User logged in: teacher
+INFO 2024-11-19 19:21:55,678 signals New user registered: teacher
+INFO 2024-11-19 19:21:55,844 signals New user registered: student
+INFO 2024-11-19 19:21:56,011 signals User logged in: student
+INFO 2024-11-19 19:21:56,176 signals New user registered: teacher
+INFO 2024-11-19 19:21:56,341 signals New user registered: student
+INFO 2024-11-19 19:21:56,505 signals New user registered: teacher
+INFO 2024-11-19 19:21:56,668 signals New user registered: student
+INFO 2024-11-19 19:21:56,832 signals New user registered: teacher
+INFO 2024-11-19 19:21:56,997 signals New user registered: student
+INFO 2024-11-19 19:21:57,162 signals User logged in: student
+INFO 2024-11-19 19:21:57,327 signals New user registered: teacher
+INFO 2024-11-19 19:21:57,492 signals New user registered: student
+INFO 2024-11-19 19:21:57,657 signals User logged in: teacher
+INFO 2024-11-19 19:21:57,822 signals New user registered: teacher
+INFO 2024-11-19 19:21:57,984 signals New user registered: student
+INFO 2024-11-19 19:21:58,149 signals New user registered: teacher
+INFO 2024-11-19 19:21:58,311 signals New user registered: student
+INFO 2024-11-19 19:21:58,474 signals New user registered: teacher
+INFO 2024-11-19 19:21:58,639 signals New user registered: student
+INFO 2024-11-19 19:21:58,805 signals New user registered: teacher
+INFO 2024-11-19 19:21:58,969 signals New user registered: student
