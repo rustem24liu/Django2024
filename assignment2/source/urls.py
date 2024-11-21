@@ -18,6 +18,22 @@ from django.contrib import admin
 from django.urls import path, include
 
 from user.views import about_user, index
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Apishka",
+        default_version='v1',
+        description="University management system, created with Django",
+        terms_of_service="https://www.example.com/terms/",
+        contact=openapi.Contact(email="temirgalirustem05@gmail.com"),
+        license=openapi.License(name="Awesome License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 
 urlpatterns = [
@@ -28,4 +44,6 @@ urlpatterns = [
     path('grades/', include('grades.urls')),
     path('student/', include('students.urls')),
     path('attendance/', include('attendance.urls')),
-    ]
+    path('notifications/', include('notifications.urls')),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+]

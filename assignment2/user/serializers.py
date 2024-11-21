@@ -35,7 +35,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return account
 
 class UserProfileUpdateSerializer(serializers.ModelSerializer):
-    role = serializers.CharField(required=False)  # Optional field for role update
+    role = serializers.CharField(required=False)
 
     class Meta:
         model = User

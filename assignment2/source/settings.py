@@ -50,6 +50,11 @@ CACHES = {
     }
 }
 
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+# SESSION_COOKIE_AGE = 0
+# SESSION_SAVE_EVERY_REQUEST = True
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -121,6 +126,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'user',
     'rest_framework',
     'rest_framework.authtoken',
@@ -129,7 +135,35 @@ INSTALLED_APPS = [
     'students',
     'attendance',
     'django_filters',
+    'notifications',
+    'django_celery_beat',
+    'drf_yasg',
+    'analytics',
 ]
+SITE_ID = 1
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Basic': {
+            'type': 'basic'
+        }
+    }
+}
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'temirgalirustem05@gmail.com'
+EMAIL_HOST_PASSWORD = 'eWN)c_zn)04'
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -146,6 +180,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'analytics.middleware.APILoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'source.urls'
@@ -176,7 +211,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    # 'analytics': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'analytics_db',
+    #     'USER': 'analytics_user',
+    #     'PASSWORD': 'password',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432',
+    # },
 }
 
 

@@ -17,6 +17,10 @@ from courses.permissions import IsTeacher
 from courses.permissions import IsStudent
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter, SearchFilter
+# from notifications.tasks import notify_grade_update
+# import logging
+#
+# logger = logging.getLogger('grades')
 
 
 # from ..courses.permissions import IsStudent
@@ -72,6 +76,7 @@ class GradeCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         user = self.request.user
 
+
         if not user.groups.filter(name='Teacher').exists():
             raise PermissionDenied("Only teachers can assign grades.")
 
@@ -82,6 +87,13 @@ class GradeCreateView(generics.CreateAPIView):
         student = serializer.validated_data['student']
         if not Enrollment.objects.filter(course=course, student=student).exists():
             raise PermissionDenied("This student is not enrolled in the selected course.")
+
+        # grade = serializer.validated_data['grade']
+        # notify_grade_update.delay(
+        #     student_id=student.id,
+        #     course_name=course.name,
+        #     grade=grade
+        # )
 
         serializer.save(teacher=user)
 
@@ -94,6 +106,8 @@ class GradeUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Grade.objects.all()
     serializer_class = GradeSerializer
     permission_classes = [IsAuthenticated, IsTeacher | IsAdminUser]
+
+
 
 class GradeDeleteView(generics.RetrieveDestroyAPIView):
     queryset = Grade.objects.all()

@@ -16,6 +16,14 @@ from .serializers import UserRegisterSerializer, UserProfileUpdateSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from students.models import Student
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+from rest_framework.decorators import api_view
+from rest_framework import status
+from django.core.cache import cache
+from django.contrib.auth.views import LogoutView
+from django.urls import reverse_lazy
+
 
 
 
@@ -25,6 +33,7 @@ from students.models import Student
 #     roles = ["Student", "Teacher", "Admin"]
 #     for role in roles:
 #         Group.objects.get_or_create(name=role)
+
 
 def index(request):
     return render(request, 'index.html')
@@ -111,3 +120,12 @@ class UserProfileUpdate(APIView):
             return Response({"message": "Profile updated successfully"})
         else:
             return Response(serializer.errors, status=400)
+
+class CustomLogoutView(LogoutView):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            cache_key = f"user_course_cache_{request.user.id}"
+            cache.delete(cache_key)
+            cache.clear()
+            print(f"Cache deleted for user {request.user.id}")
+        return super().dispatch(request, *args, **kwargs)

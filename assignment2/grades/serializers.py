@@ -44,6 +44,9 @@ class GradeSerializer(serializers.ModelSerializer):
         if not Enrollment.objects.filter(course=course, student=student).exists():
             raise serializers.ValidationError("This student is not enrolled in the selected course!")
 
+        if not Student.objects.filter(id=student.id).exists():
+            raise serializers.ValidationError("Invalid student ID.")
+
         return data
 
 class StudentCoursesGradeSerializer(serializers.ModelSerializer):

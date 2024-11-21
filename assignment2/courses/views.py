@@ -4,6 +4,8 @@ from rest_framework import generics, viewsets, permissions
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
+from django.core.cache import cache
+from rest_framework.response import Response
 
 from .pagination import CoursePagination
 from .permissions import IsTeacher, IsStudent
@@ -35,9 +37,16 @@ class CourseListView(generics.ListAPIView):
     ordering_fields = ['name', 'id']
     permission_classes = [permissions.IsAuthenticated]
 
-    @method_decorator(cache_page(60 * 15))
+
+
     def get(self, request, *args, **kwargs):
         user = request.user
+
+        cache_key = f"user_course_cache_{user.id}"
+        cached_data = cache.get(cache_key)
+        if cached_data:
+            print(f"Cache hit for user {user.id}")
+            return Response(cached_data)
 
         if user.is_superuser or user.is_staff:
             courses = Course.objects.all()
@@ -83,6 +92,11 @@ class CourseListView(generics.ListAPIView):
 
         else:
             raise PermissionDenied("You do not have permission to access this view.")
+
+        cache.set(cache_key, data, timeout=900)
+        print(f"Cache set for user {user.id}")
+
+        return Response(data)
 
 class CourseCreateView(generics.CreateAPIView):
     queryset = Course.objects.all()
